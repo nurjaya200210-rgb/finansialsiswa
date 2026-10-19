@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinSiswa — Student Finance Tracker</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- Sidebar navigasi -->
+    <aside class="sidebar">
+      <h1 class="brand">FinSiswa<span>.</span></h1>
+      <p class="sidebar-caption">STUDENT FINANCE</p>
+
+      
+<nav class="navigation">
+  <a href="#" class="nav-link active" data-target="dashboard-section">Dashboard</a>
+  <a href="#" class="nav-link" data-target="transaction-section">Transaksi</a>
+  <a href="#" class="nav-link" data-target="budget-section">Anggaran</a>
+  <a href="#" class="nav-link" data-target="savings-section">Tabungan</a>
+  <a href="#" class="nav-link" data-target="report-section">Laporan</a>
+</nav>
+
+
+      <div class="sidebar-footer">
+        <p>Kelola uangmu.</p>
+        <p>Rencanakan masa depanmu.</p>
+      </div>
+    </aside>
+
+    <!-- Konten utama -->
+    <main class="main-content">
+
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">RINGKASAN KEUANGAN</p>
+          <h2>Dashboard</h2>
+          <p>Selamat datang di FinSiswa.</p>
+        </div>
+
+        <button type="button" class="add-button">
+          + Tambah Transaksi
+        </button>
+      </header>
+
+      
+      <!-- Form tambah transaksi -->
+      <section class="content-panel" id="transaction-form-panel" hidden>
+        <h3>Tambah Transaksi</h3>
+        <p>Catat uang masuk atau uang keluar.</p>
+
+        <form id="transaction-form">
+
+          <label for="transaction-type">Jenis transaksi</label>
+          <select id="transaction-type" required>
+            <option value="income">Pemasukan</option>
+            <option value="expense">Pengeluaran</option>
+          </select>
+
+<label for="transaction-category">Kategori</label>
+<select id="transaction-category" required>
+  <option value="uang-saku">Uang saku</option>
+  <option value="penjualan-usaha">Penjualan / usaha</option>
+  <option value="hadiah">Hadiah</option>
+  <option value="lainnya">Lainnya</option>
+</select>
+
+          <label for="transaction-amount">Nominal (Rp)</label>
+          <input
+            type="number"
+            id="transaction-amount"
+            min="1"
+            step="1"
+            placeholder="Contoh: 10000"
+            required
+          >
+
+          <label for="transaction-note">Keterangan</label>
+          <input
+            type="text"
+            id="transaction-note"
+            maxlength="100"
+            placeholder="Contoh: Uang saku"
+            required
+          >
+
+          <button type="submit" class="add-button">
+            Simpan Transaksi
+          </button>
+
+        </form>
+      </section>
+
+<!-- Bagian Anggaran -->
+ <section class="content-panel" id="budget-section">
+  <h3>Anggaran Bulanan</h3>
+  <p>Atur batas pengeluaran agar keuanganmu lebih terkontrol.</p>
+
+  <form id="budget-form">
+
+    
+<label for="budget-category">Kategori anggaran</label>
+<select id="budget-category" required>
+  <option value="makanan">Makanan</option>
+  <option value="pendidikan">Pendidikan</option>
+  <option value="transportasi">Transportasi</option>
+  <option value="hiburan">Hiburan</option>
+  <option value="lainnya">Lainnya</option>
+</select>
+
+
+<div id="budget-note-group" hidden>
+  <label for="budget-note">Keterangan</label>
+  <input
+    type="text"
+    id="budget-note"
+    maxlength="100"
+    placeholder="Contoh: Perlengkapan hobi"
+  >
+
+</div>
+    <label for="budget-amount">Batas anggaran (Rp)</label>
+    <input
+      type="number"
+      id="budget-amount"
+      min="1"
+      step="1"
+      placeholder="Contoh: 200000"
+      required
+    >
+
+    <button type="submit" class="add-button">
+      Simpan Anggaran
+    </button>
+  </form>
+
+  <div id="budget-list">
+    <p>Belum ada anggaran yang dibuat.</p>
+  </div>
+</section>
+
+<section class="content-panel" id="savings-section">
+  <h3>Target Tabungan</h3>
+  <p>Buat target dan pantau progres tabunganmu.</p>
+
+  <form id="savings-form">
+    <label for="savings-name">Nama target</label>
+    <input
+      type="text"
+      id="savings-name"
+      maxlength="60"
+      placeholder="Contoh: Laptop"
+      required
+    >
+
+    <label for="savings-target">Target tabungan (Rp)</label>
+    <input
+      type="number"
+      id="savings-target"
+      min="1"
+      step="1"
+      placeholder="Contoh: 3000000"
+      required
+    >
+
+    <label for="savings-current">Jumlah terkumpul saat ini (Rp)</label>
+    <input
+      type="number"
+      id="savings-current"
+      min="0"
+      step="1"
+      value="0"
+      required
+    >
+
+    <button type="submit" class="add-button">
+      Simpan Target
+    </button>
+  </form>
+
+  <div id="savings-list">
+    <p>Belum ada target tabungan.</p>
+  </div>
+</section>
+
+<section class="summary-grid" id="dashboard-section">
+
+  <article class="summary-card balance-card">
+    <p>Total Saldo</p>
+    <h3 id="balance-amount">Rp0</h3>
+    <span>Saldo keuanganmu saat ini</span>
+  </article>
+
+  <article class="summary-card">
+    <p>Total Pemasukan</p>
+    <h3 id="income-amount">Rp0</h3>
+    <span>Jumlah uang masuk</span>
+  </article>
+
+  <article class="summary-card expense-card">
+    <p>Total Pengeluaran</p>
+    <h3 id="expense-amount">Rp0</h3>
+    <span>Jumlah uang keluar</span>
+  </article>
+
+</section>
+
+
+      
+<!-- Area grafik -->
+<section class="content-panel" id="dashboard-chart-section">
+  <h3>Ringkasan Arus Kas</h3>
+  <p class="chart-description">
+    Perbandingan pemasukan dan pengeluaran berdasarkan tanggal.
+  </p>
+
+  <div class="chart-legend">
+    <span><i class="legend-income"></i> Pemasukan</span>
+    <span><i class="legend-expense"></i> Pengeluaran</span>
+  </div>
+
+  <div id="cash-flow-chart" class="cash-flow-chart">
+    <p>Grafik akan ditampilkan di sini.</p>
+  </div>
+</section>
+
+
+      
+      <!-- Area transaksi -->
+      <section class="content-panel" id="transaction-section">
+        <h3>Transaksi Terbaru</h3>
+
+        <div class="transaction-filters">
+          <div>
+            <label for="transaction-filter-type">
+              Jenis transaksi
+            </label>
+            <select id="transaction-filter-type">
+              <option value="all">Semua transaksi</option>
+              <option value="income">Pemasukan</option>
+              <option value="expense">Pengeluaran</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="transaction-filter-date">
+              Tanggal transaksi
+            </label>
+            <input
+              type="date"
+              id="transaction-filter-date"
+            >
+          </div>
+        </div>
+
+        <div id="transaction-list">
+          <p>Belum ada transaksi.</p>
+        </div>
+      </section>
+
+<!-- BAGIAN LAPORAN KEUANGAN -->
+<section class="content-panel" id="report-section">
+  <h3>Laporan Keuangan</h3>
+  <p>Ringkasan kondisi keuangan berdasarkan seluruh transaksi.</p>
+
+  <div class="summary-grid">
+    <article class="summary-card">
+      <p>Total Pemasukan</p>
+      <h3 id="report-income">Rp0</h3>
+    </article>
+
+    <article class="summary-card expense-card">
+      <p>Total Pengeluaran</p>
+      <h3 id="report-expense">Rp0</h3>
+    </article>
+
+    <article class="summary-card balance-card">
+      <p>Saldo Akhir</p>
+      <h3 id="report-balance">Rp0</h3>
+    </article>
+  </div>
+
+  <h3>Pengeluaran per Kategori</h3>
+  <div id="report-category-list">
+    <p>Belum ada data pengeluaran.</p>
+  </div>
+</section>
+
+    </main>
+  </div>
+
+
+  <!-- MODAL KONFIRMASI FINSISWA -->
+  <div
+    class="confirm-overlay"
+    id="confirm-modal"
+    hidden
+  >
+    <section
+      class="confirm-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirm-title"
+      aria-describedby="confirm-message"
+    >
+      <div class="confirm-icon" aria-hidden="true">!</div>
+
+      <h2 id="confirm-title">Konfirmasi penghapusan</h2>
+
+      <p id="confirm-message">
+        Apakah kamu yakin ingin menghapus data ini?
+      </p>
+
+      <div class="confirm-actions">
+        <button
+          type="button"
+          class="confirm-cancel"
+          id="confirm-cancel"
+        >
+          Batal
+        </button>
+
+        <button
+          type="button"
+          class="confirm-delete"
+          id="confirm-delete"
+        >
+          Hapus
+        </button>
+      </div>
+    </section>
+  </div>
+
+
+  <script src="script.js"></script>
+  
+<!-- Modal Tambah Uang -->
+<div id="add-money-modal" class="modal-overlay" hidden>
+  <div class="modal-card">
+    <h3>Tambah Uang</h3>
+    <p id="add-money-description">
+      Masukkan nominal yang ingin ditambahkan ke tabungan.
+    </p>
+
+    <form id="add-money-form">
+      <label for="add-money-amount">Nominal uang (Rp)</label>
+      <input
+        type="number"
+        id="add-money-amount"
+        min="1"
+        step="1"
+        placeholder="Contoh: 10000"
+        required
+      />
+
+      <div class="modal-actions">
+        <button type="button" id="add-money-cancel">
+          Batal
+        </button>
+        <button type="submit">
+          Lanjutkan
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- Modal Input Tambah Uang -->
+<div id="add-money-modal" class="modal-overlay" hidden>
+  <div class="modal-card">
+    <h3>Tambah Uang</h3>
+    <p id="add-money-description">
+      Masukkan nominal uang yang ingin ditambahkan.
+    </p>
+
+    <form id="add-money-form">
+      <label for="add-money-amount">Nominal uang (Rp)</label>
+      <input
+        type="number"
+        id="add-money-amount"
+        min="1"
+        step="1"
+        placeholder="Contoh: 10000"
+        required
+      />
+
+      <div class="modal-actions">
+        <button type="button" id="add-money-cancel">Batal</button>
+        <button type="submit">Lanjutkan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
